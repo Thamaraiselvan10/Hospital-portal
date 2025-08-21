@@ -1,0 +1,268 @@
+/* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --grey-color: #6c757d;
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 0 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+    header h1 {
+        font-size: 22px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .user-profile a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+    .user-profile a:hover {
+        opacity: 0.8;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* --- SIDEBAR NAV --- */
+    /* ------------------- */
+    aside {
+      width: var(--nav-width);
+      background: var(--card-bg);
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    aside ul { list-style: none; }
+    aside ul li { margin: 15px 0; }
+    aside ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    aside ul li a:hover,
+    aside ul li.active a {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* --- MAIN CONTENT -- */
+    /* ------------------- */
+    main.dashboard {
+      flex: 1;
+      padding: 50px;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    main h1 {
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+    
+    /* Summary Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .card-content h3 {
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: var(--grey-color);
+      font-weight: 500;
+    }
+    .card-content p {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    .card .icon {
+      font-size: 24px;
+      color: var(--primary-color);
+      background-color: var(--secondary-color);
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Recent Appointments Table */
+    .recent {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+    .recent h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 15px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+    th {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--grey-color);
+    }
+    tbody tr:not(.details-row):hover { 
+      background: var(--secondary-color);
+    }
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .status-upcoming { background: var(--secondary-color); color: var(--primary-hover); }
+    .status-completed { background: var(--secondary-color); color: var(--primary-hover); }
+    
+    .btn-action {
+      padding: 8px 16px;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: var(--primary-color);
+    }
+    .btn-action:hover {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: scale(1.05);
+    }
+    
+    /* Details Row */
+    .details-row {
+      background-color: var(--secondary-color); 
+    }
+    .details-content {
+      padding: 20px 25px !important;
+      color: var(--grey-color);
+    }
+    .details-content strong {
+      color: var(--text-color);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .details-content p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 768px) {
+      aside {
+        transform: translateX(-100%);
+        z-index: 1000;
+      }
+      aside.active { transform: translateX(0); }
+      main.dashboard { margin-left: 0; padding: 20px; }
+      header { padding: 0 20px; }
+      h1 { font-size: 24px; }
+      .menu-toggle { display: block; }
+    }

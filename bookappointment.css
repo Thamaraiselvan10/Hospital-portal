@@ -1,0 +1,306 @@
+/* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* ---- CONTAINER ---- */
+    /* ------------------- */
+    .container {
+      display: flex;
+    }
+
+    /* ------------------- */
+    /* ------ NAVBAR ----- */
+    /* ------------------- */
+    nav {
+      width: var(--nav-width);
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* ---- MAIN CONTENT - */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    .appointment-wrapper{
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    h1 {
+      color: var(--text-color);
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 32px;
+    }
+
+    .appointment-box {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      gap: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .calendar-section,
+    .time-section {
+      flex: 1;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      font-size: 20px;
+    }
+    
+    /* ------------------- */
+    /* --- NEW CALENDAR -- */
+    /* ------------------- */
+    .calendar-container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .calendar-nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--primary-color);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .calendar-day-name, .calendar-day {
+      text-align: center;
+      padding: 10px;
+      font-weight: 500;
+    }
+    
+    .calendar-day-name {
+      color: var(--grey-color);
+      font-size: 14px;
+    }
+
+    .calendar-day {
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .calendar-day:not(.inactive):hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .calendar-day.inactive {
+      color: #ccc;
+      cursor: default;
+    }
+    
+    .calendar-day.today {
+      border: 2px solid var(--primary-color);
+    }
+    
+    .calendar-day.selected {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+
+    /* Time Slots */
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 15px;
+    }
+
+    .time-slot {
+      padding: 14px;
+      background: var(--secondary-color);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+    }
+  
+    .time-slot:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+    
+    .time-slot.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      border-color: var(--primary-color);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    /* Submit Button */
+    .btn-submit {
+      margin-top: 30px;
+      width: 100%;
+      padding: 16px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 15px rgba(134, 162, 72, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      .appointment-box {
+        flex-direction: column;
+        gap: 30px;
+      }
+      main {
+        padding: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav { transform: translateX(-100%); }
+      nav.active { transform: translateX(0); }
+      .menu-toggle { display: block; }
+      main{
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1{ font-size: 24px; }
+    }

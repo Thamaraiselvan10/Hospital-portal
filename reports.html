@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --grey-color: #6c757d;
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* ---- CONTAINER ---- */
+    /* ------------------- */
+    .container {
+      display: flex;
+    }
+
+    /* ------------------- */
+    /* ------ NAVBAR ----- */
+    /* ------------------- */
+    nav {
+      width: var(--nav-width);
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* ---- MAIN CONTENT - */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    .reports-wrapper {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      color: var(--text-color);
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 32px;
+    }
+
+    /* --- REPORT CARD STYLES --- */
+    .report-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 25px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      padding: 25px 30px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    
+    .report-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .report-icon {
+      font-size: 38px;
+      color: var(--primary-color);
+      margin-right: 30px;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .report-details {
+      flex-grow: 1;
+    }
+
+    .report-details h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 5px 0;
+    }
+
+    .report-details p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--grey-color);
+      line-height: 1.5;
+    }
+
+    .btn-download {
+      padding: 12px 22px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .btn-download:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 15px rgba(134, 162, 72, 0.4);
+      transform: translateY(-2px);
+    }
+    
+
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      main { padding: 30px; }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        transform: translateX(-100%);
+      }
+      nav.active { transform: translateX(0); }
+      .menu-toggle { display: block; }
+      main{
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1{ font-size: 24px; }
+      .report-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px;
+      }
+      .report-icon {
+        margin-bottom: 20px;
+        font-size: 32px;
+      }
+      .btn-download {
+        margin-top: 20px;
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Reports</span>
+    <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+  </header>
+
+  <div class="container">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="patient-home.html"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="bookappointment.html"><i class="fas fa-calendar-check"></i>Book Appointment</a></li>
+        <li><a href="my-appoinments.html"><i class="fas fa-calendar-alt"></i>My Appointments</a></li>
+        <li><a href="reports.html" class="active"><i class="fas fa-file-invoice"></i>Reports</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="reports-wrapper">
+        <h1>Your Medical Reports</h1>
+
+        <div class="report-card">
+          <div class="report-icon">
+            <i class="fas fa-file-medical"></i>
+          </div>
+          <div class="report-details">
+            <h2>Post-Session Summary</h2>
+            <p>Dr. Rajkumar (Physiotherapy) &bull; Issued on 25 Aug 2025</p>
+          </div>
+          <a href="#" class="btn-download" download>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+
+        <div class="report-card">
+          <div class="report-icon">
+            <i class="fas fa-file-waveform"></i>
+          </div>
+          <div class="report-details">
+            <h2>Cardiology Check-Up Results</h2>
+            <p>Dr. Ganesan (Cardiology) &bull; Issued on 15 Jul 2025</p>
+          </div>
+          <a href="#" class="btn-download" download>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+        
+        <div class="report-card">
+          <div class="report-icon">
+            <i class="fas fa-vials"></i>
+          </div>
+          <div class="report-details">
+            <h2>Blood Test Analysis</h2>
+            <p>Lab Work &bull; Issued on 12 Jul 2025</p>
+          </div>
+          <a href="#" class="btn-download" download>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+
+        <div class="report-card">
+          <div class="report-icon">
+            <i class="fas fa-x-ray"></i>
+          </div>
+          <div class="report-details">
+            <h2>X-Ray Imaging Report</h2>
+            <p>Radiology Department &bull; Issued on 10 Jun 2025</p>
+          </div>
+          <a href="#" class="btn-download" download>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+
+        <div class="report-card">
+          <div class="report-icon">
+            <i class="fas fa-prescription-bottle-medical"></i>
+          </div>
+          <div class="report-details">
+            <h2>Prescription Summary</h2>
+            <p>Dr. Leo (General Practice) &bull; Issued on 05 May 2025</p>
+          </div>
+          <a href="#" class="btn-download" download>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

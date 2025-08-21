@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Details</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* ---- CONTAINER ---- */
+    /* ------------------- */
+    .container {
+      display: flex;
+    }
+
+    /* ------------------- */
+    /* ------ NAVBAR ----- */
+    /* ------------------- */
+    nav {
+      width: var(--nav-width);
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* ---- MAIN CONTENT - */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    .form-wrapper {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h1 {
+      color: var(--text-color);
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 32px;
+    }
+
+    .details-box {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+    
+    /* --- FORM STYLES --- */
+    .form-row {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--text-color);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      font-size: 16px;
+      font-family: "Poppins", sans-serif;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background-color: var(--secondary-color);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(134, 162, 72, 0.15);
+      background-color: #fff;
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* --- SUBMIT BUTTON --- */
+    .btn-submit {
+      margin-top: 20px;
+      width: 100%;
+      padding: 16px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 15px rgba(134, 162, 72, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      main {
+        padding: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        transform: translateX(-100%);
+      }
+      nav.active {
+        transform: translateX(0);
+      }
+      .menu-toggle {
+        display: block;
+      }
+      main{
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1{
+        font-size: 24px;
+      }
+      .form-row {
+        flex-direction: column;
+        gap: 0; /* Remove gap as margin is added below */
+        margin-bottom: 0;
+      }
+      .form-row .form-group {
+        margin-bottom: 25px;
+      }
+      .details-box {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Patient Details</span>
+    <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+  </header>
+
+  <div class="container">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="patient-home.html"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="bookappointment.html" class="active"><i class="fas fa-calendar-check"></i>Book Appointment</a></li>
+        <li><a href="my-appoinments.html"><i class="fas fa-calendar-alt"></i>My Appointments</a></li>
+        <li><a href="reports.html"><i class="fas fa-file-invoice"></i>Reports</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="form-wrapper">
+        <h1>Enter Your Details</h1>
+        <div class="details-box">
+          <form action="#">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="John Doe" required>
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="e.g., 35" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                  <option value="" disabled selected>Select your gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" placeholder="(+1) 123 456 7890" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+               <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="description">Reason for Appointment</label>
+                <textarea id="description" placeholder="Briefly describe your condition or reason for visit..."></textarea>
+              </div>
+            </div>
+
+            <a href="payment-method.html">
+              <button type="button" class="btn-submit">Proceed to Payment</button>
+            </a>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

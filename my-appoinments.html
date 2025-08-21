@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Appointments</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb; 
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef; 
+      --card-bg: #ffffff;
+      --success-color: #86a248;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04); 
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08); 
+      --grey-color: #6c757d;
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248); 
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px; 
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent; 
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* ---- CONTAINER ---- */
+    /* ------------------- */
+    .container {
+      display: flex;
+    }
+
+    /* ------------------- */
+    /* ------ NAVBAR ----- */
+    /* ------------------- */
+    nav {
+      width: var(--nav-width);
+      background: #ffffff; 
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px; 
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* ---- MAIN CONTENT - */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px; 
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    .appointments-wrapper {
+      width: 100%;
+      max-width: 950px; 
+    }
+
+    h1 {
+      color: var(--text-color);
+      margin-bottom: 30px;
+      font-weight: 700; 
+      font-size: 32px; 
+    }
+
+    /* --- APPOINTMENT CARD STYLES --- */
+    .appointment-card {
+      background: var(--card-bg);
+      border-radius: 15px; 
+      box-shadow: var(--shadow-md);
+      margin-bottom: 30px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .appointment-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card-main-content {
+      padding: 30px; 
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .card-header h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .card-header span {
+      font-size: 14px;
+      color: var(--grey-color);
+    }
+    
+    .status-badge {
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-upcoming { background: var(--primary-color); }
+    .status-completed { background: var(--success-color); }
+    .status-cancelled { background: var(--grey-color); }
+
+    .countdown {
+      text-align: center;
+      margin: 20px 0;
+      padding: 20px;
+      background: var(--secondary-color);
+      border-radius: 10px;
+    }
+    .countdown p {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+     .countdown-completed p {
+      color: var(--success-color);
+    }
+
+    .card-details {
+      margin-top: 25px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 25px;
+    }
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .detail-item .label {
+      color: var(--grey-color);
+    }
+    .detail-item .value {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .detail-item .value i {
+      color: var(--primary-color);
+      font-size: 18px;
+    }
+
+    .card-actions {
+      background: var(--secondary-color);
+      padding: 20px 30px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+    .btn-action {
+      padding: 10px 20px;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--primary-color);
+      color: var(--text-light);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-color);
+    }
+    .btn-secondary:hover {
+      background: rgba(134, 162, 72, 0.1);
+      transform: scale(1.05);
+    }
+    
+
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      main { padding: 30px; }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: 0;
+        padding-top: var(--header-height);
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 1000;
+        width: 250px;
+      }
+      nav.active { transform: translateX(0); }
+      .menu-toggle { display: block; }
+      main{
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1{ font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>My Appointments</span>
+    <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+  </header>
+
+  <div class="container">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="patient-home.html"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="bookappointment.html"><i class="fas fa-calendar-check"></i>Book Appointment</a></li>
+        <li><a href="my-appoinments.html" class="active"><i class="fas fa-calendar-alt"></i>My Appointments</a></li>
+        <li><a href="reports.html"><i class="fas fa-file-invoice"></i>Reports</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="appointments-wrapper">
+        <h1>Your Appointments</h1>
+
+        <!-- APPOINTMENT CARD 1: UPCOMING -->
+        <div class="appointment-card">
+          <div class="card-main-content">
+            <div class="card-header">
+              <div>
+                <h2>Dr. Srinivasan (Physiotherapy)</h2>
+              </div>
+              <span class="status-badge status-upcoming">Upcoming</span>
+            </div>
+            
+            <div class="countdown" data-appointment-date="2025-08-25T10:30:00">
+              <p>Loading countdown...</p>
+            </div>
+
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="label">Date & Time</span>
+                <span class="value"><i class="fas fa-calendar-alt"></i> 25 Aug 2025, 10:30 AM</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Payment Method</span>
+                <span class="value"><i class="fas fa-credit-card"></i> Credit Card</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Amount Paid</span>
+                <span class="value"><i class="fas "></i>₹8000.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-action btn-secondary">Cancel</button>
+            <button class="btn-action btn-primary">Reschedule</button>
+          </div>
+        </div>
+        
+        <!-- APPOINTMENT CARD 2: COMPLETED -->
+        <div class="appointment-card">
+           <div class="card-main-content">
+            <div class="card-header">
+              <div>
+                <h2>Dr. VignehKumar (Cardiology)</h2>
+              </div>
+              <span class="status-badge status-completed">Completed</span>
+            </div>
+            
+            <div class="countdown countdown-completed" data-appointment-date="2025-07-15T14:00:00">
+               <p>This appointment is complete.</p>
+            </div>
+
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="label">Date & Time</span>
+                <span class="value"><i class="fas fa-calendar-alt"></i> 15 Jul 2025, 02:00 PM</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Payment Method</span>
+                <span class="value"><i class="fa-brands fa-google-pay"></i> UPI</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Amount Paid</span>
+                <span class="value"><i class="fas "></i>₹ 1500.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- No actions for completed appointments -->
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // --- COUNTDOWN SCRIPT ---
+    document.addEventListener('DOMContentLoaded', function() {
+      const countdownElements = document.querySelectorAll('.countdown');
+
+      countdownElements.forEach(element => {
+        const appointmentDateStr = element.getAttribute('data-appointment-date');
+        if (!appointmentDateStr) return;
+
+        const appointmentDate = new Date(appointmentDateStr).getTime();
+
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const distance = appointmentDate - now;
+
+          if (distance < 0) {
+            if (!element.classList.contains('countdown-completed')) {
+               element.innerHTML = '<p>This appointment is complete.</p>';
+               element.classList.add('countdown-completed');
+            }
+            if (element.intervalId) {
+                clearInterval(element.intervalId);
+            }
+            return;
+          }
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          element.innerHTML = `<p>Appointment in: ${days}d ${hours}h ${minutes}m ${seconds}s</p>`;
+        };
+
+        updateCountdown();
+        element.intervalId = setInterval(updateCountdown, 1000);
+      });
+    });
+  </script>
+</body>
+</html>

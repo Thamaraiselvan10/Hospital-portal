@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --grey-color: #6c757d;
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* ------ HEADER ----- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ------------------- */
+    /* ---- CONTAINER ---- */
+    /* ------------------- */
+    .container {
+      display: flex;
+    }
+
+    /* ------------------- */
+    /* ------ NAVBAR ----- */
+    /* ------------------- */
+    nav {
+      width: var(--nav-width);
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+
+    /* ------------------- */
+    /* ---- MAIN CONTENT - */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    main > p {
+      color: var(--grey-color);
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--border-color);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-content h2 {
+      margin-bottom: 8px;
+      font-size: 20px;
+      color: var(--text-color);
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: var(--grey-color);
+      line-height: 1.6;
+    }
+
+    .btn {
+      min-width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      border: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover .btn {
+      transform: scale(1.1);
+    }
+
+    .recent {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .recent h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 15px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 15px;
+    }
+
+    th {
+      color: var(--grey-color);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr:hover {
+      background: var(--secondary-color);
+    }
+
+    .scrollable-table {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    /* ------------------- */
+    /* ---- RESPONSIVE --- */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      main { padding: 30px; }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        transform: translateX(-100%);
+      }
+      nav.active {
+        transform: translateX(0);
+      }
+      .menu-toggle {
+        display: block;
+      }
+      main {
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Patient Dashboard</span>
+    <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+  </header>
+
+  <div class="container">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="patient-home.html" class="active"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="bookappointment.html"><i class="fas fa-calendar-check"></i>Book Appointment</a></li>
+        <li><a href="my-appoinments.html"><i class="fas fa-calendar-alt"></i>My Appointments</a></li>
+        <li><a href="reports.html"><i class="fas fa-file-invoice"></i>Reports</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Welcome, Thamarai Selvan 👋</h1>
+      <p>Here are your quick actions:</p>
+
+      <div class="grid">
+        <div class="card" onclick="location.href='bookappointment.html'">
+          <div class="card-content">
+            <h2>Book Appointment</h2>
+            <p>Schedule a new consultation.</p>
+          </div>
+          <div class="btn"><i class="fas fa-calendar-plus"></i></div>
+        </div>
+
+        <div class="card" onclick="location.href='my-appoinments.html'">
+          <div class="card-content">
+            <h2>My Appointments</h2>
+            <p>View and manage your visits.</p>
+          </div>
+          <div class="btn"><i class="fas fa-calendar-check"></i></div>
+        </div>
+
+        <div class="card" onclick="location.href='reports.html'">
+          <div class="card-content">
+            <h2>Reports</h2>
+            <p>Access your medical records.</p>
+          </div>
+          <div class="btn"><i class="fas fa-file-medical"></i></div>
+        </div>
+      </div>
+
+      <div class="recent">
+        <h2>Recent Appointments</h2>
+        <div class="scrollable-table">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Doctor</th><th>Department</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11 Aug 2025</td>
+                <td>Dr. Rajamani</td>
+                <td>Physiotherapy</td>
+                <td>Completed</td>
+              </tr>
+              <tr>
+                <td>25 Jul 2025</td>
+                <td>Dr. Kumar</td>
+                <td>Cardiology</td>
+                <td>Completed</td>
+              </tr>
+              <tr>
+                <td>15 Jun 2025</td>
+                <td>Dr. Jerold</td>
+                <td>General Checkup</td>
+                <td>Completed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>

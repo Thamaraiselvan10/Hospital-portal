@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Therapist Dashboard</title>
+  <link rel="stylesheet" href="therapist.js">
+  <link rel="stylesheet" href="therapist.css">
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dashboard</h1>
+    <div class="user-profile">
+      <a href="#">Logout</a>
+      <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+    </div>
+  </header>
+
+  <aside id="sidebar">
+    <ul>
+      <li class="active"><a href="#" onclick="updateDashboard(this)"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="#" onclick="printUpcomingAppointments(this)"><i class="fas fa-calendar-alt"></i>Upcoming</a></li>
+      <li><a href="#" onclick="printPreviousAppointments(this)"><i class="fas fa-history"></i>Previous</a></li>
+      <li><a href="#" onclick="printReports(this)"><i class="fas fa-file-invoice"></i>Reports</a></li>
+    </ul>
+  </aside>
+
+  <main class="dashboard">
+    <h1 id="dashboardTitle">Welcome, Dr. Deva!</h1>
+
+    <div class="cards">
+      <div class="card" onclick="printUpcomingAppointments(document.querySelector('aside ul li:nth-child(2) a'))">
+        <div class="card-content">
+          <h3>Upcoming</h3>
+          <p id="upcomingCount">0</p>
+        </div>
+        <div class="icon"><i class="fas fa-calendar-plus"></i></div>
+      </div>
+
+      <div class="card" onclick="printPreviousAppointments(document.querySelector('aside ul li:nth-child(3) a'))">
+        <div class="card-content">
+          <h3>Completed</h3>
+          <p id="previousCount">0</p>
+        </div>
+        <div class="icon"><i class="fas fa-calendar-check"></i></div>
+      </div>
+
+      <div class="card" onclick="printReports(document.querySelector('aside ul li:nth-child(4) a'))">
+        <div class="card-content">
+          <h3>Pending Reports</h3>
+          <p id="reportsCount">0</p>
+        </div>
+        <div class="icon"><i class="fas fa-file-medical"></i></div>
+      </div>
+    </div>
+
+    <div class="recent">
+      <h2 id="tableTitle">Recent Appointments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="appointmentsTable"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="therapist.js"></script>
+   
+  </script>
+</body>
+</html>

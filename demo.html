@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+
+    /* Hero section */
+    .hero {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      background: #f8f9fa;
+      padding: 0px 100px 0 100px;
+      height: 100vh;
+    }
+
+    .hero-text {
+       /* text takes 60% */
+      padding-right: 20px;
+       /* small gap between text & image */
+      width: 800px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;     /* bigger heading */
+      font-weight: bold;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;   /* bigger paragraph */
+      line-height: 1.6;
+    }
+
+    .hero-img img{
+       /* image takes 40% */
+      max-width: 100%;
+      border-radius: 10px;
+      height:550px;
+    }
+    .btn-box{
+      width: 320px; /* Increased width for better spacing */
+      height: 150px; /* Increased height for better spacing */
+      margin-right: 30px; /* Adjusted margin */
+      border-radius: 20px; /* Smoother corners */
+      border: none;
+      background-color: #007bff; /* Changed to a standard primary color */
+      color: white; /* Text color */
+      padding: 20px; /* Added padding */
+      display: flex; /* Using flexbox for layout */
+      justify-content: space-between; /* Space between text and image */
+      align-items: center; /* Vertically center items */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    }
+
+    .btn-box:hover {
+      transform: translateY(-5px); /* Lift effect on hover */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+    }
+
+    .btn-box .text-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .btn-box h4 {
+      margin: 0 0 10px 0; /* Margin below the heading */
+      font-size: 1.4rem; /* Larger font size */
+      font-weight: bold;
+    }
+
+    .btn-box .btn {
+      background-color: white;
+      color: #007bff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 25px; /* Pill-shaped button */
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-box .btn:hover {
+      background-color: #f0f0f0; /* Light grey on hover */
+    }
+
+    .btn-box img {
+      width: 90px; /* Larger image */
+      height: 90px; /* Larger image */
+      border-radius: 50%; /* Circular image */
+      object-fit: cover; /* Ensure image covers the area */
+      border: 3px solid white; /* White border around the image */
+    }
+
+    #box {
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 90px;
+      background-color: #f8f9fa; /* Light grey background */
+    }
+
+    #box header {
+      margin-bottom: 50px;
+    }
+
+    .id{
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fbfd;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .features-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+     
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 120px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      display: inline-block;
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .icon-blue {
+      background: #eef4ff;
+      color: #2a62ff;
+    }
+
+    .icon-green {
+      background: #e9f9f1;
+      color: #1e9d5c;
+    }
+
+    .icon-yellow {
+      background: #fff8e5;
+      color: #f7a600;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #1a1a1a;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .stats {
+      background: #1E63F0;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 12px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-item h2 {
+      margin: 0 0 10px;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .stat-item p {
+      margin: 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    img.demo-img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        height: auto;
+        padding: 50px 20px;
+        text-align: center;
+      }
+      .hero-text {
+        width: 100%;
+        padding-right: 0;
+      }
+      .hero-img {
+        margin-top: 20px;
+      }
+      #box {
+        padding: 40px 15px;
+      }
+      #box header {
+        margin-bottom: 40px;
+      }
+      .stats {
+        padding: 60px 15px;
+      }
+      .stat-item h2 {
+        font-size: 2rem;
+      }
+      .stat-item p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-primary" href="#">Hospital 🏥</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a href="#" class="btn btn-outline-primary">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section >
+    <div class="hero">
+      <div class="hero-text">
+      <h1>Welcome to Our Hospital</h1>
+      <p>
+        Your health is our top priority.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center justify-content-lg-start">
+        <div class="btn-box m-2">
+          <div class="text-content">
+            <h4>Patient Portal</h4>
+            <a href="#" class="btn">Explore</a>
+          </div>
+          <img src="2151150966.jpg" alt="Patient Icon">
+        </div>
+        <div class="btn-box m-2">
+          <div class="text-content">
+            <h4>Therapist Portal</h4>
+            <a href="#" class="btn">Explore</a>
+          </div>
+          <img src="2151150966.jpg" alt="Therapist Icon">
+        </div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <!-- Use your uploaded image -->
+      <img src="anime-building-illustration.jpg" alt="Hospital Building">
+    </div>
+
+    </div>
+  </section>
+
+  <div id="box">
+  <header>
+    <h1>Comprehensive Healthcare Management</h1>
+    <p>Everything you need to manage your healthcare journey in one secure, easy-to-use platform.</p>
+  </header>
+
+  <section class="features-container">
+    <div class="feature-card">
+      <div class="feature-icon icon-blue">📅</div>
+      <h3>Smart Scheduling</h3>
+      <p>Book appointments easily with real-time availability, automated reminders, and seamless calendar integration.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon icon-green">📈</div>
+      <h3>Progress Tracking</h3>
+      <p>Monitor your health journey with detailed reports, progress charts, and personalized insights.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon icon-yellow">🔒</div>
+      <h3>Secure Records</h3>
+      <p>Your medical records are encrypted and protected with industry-leading security standards.</p>
+    </div>
+  </section>
+    </div>
+
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat-item">
+        <h2>50,000+</h2>
+        <p>Patients Served</p>
+      </div>
+      <div class="stat-item">
+        <h2>1,200+</h2>
+        <p>Healthcare Providers</p>
+      </div>
+      <div class="stat-item">
+        <h2>99.9%</h2>
+        <p>Uptime Reliability</p>
+      </div>
+      <div class="stat-item">
+        <h2>4.9/5</h2>
+        <p>User Satisfaction</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>```

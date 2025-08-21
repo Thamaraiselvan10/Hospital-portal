@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ------------------- */
+    /* --- ROOT & RESET -- */
+    /* ------------------- */
+    :root {
+      --primary-color: #86a248;
+      --primary-hover: #52642c;
+      --secondary-color: #f0f2eb;
+      --text-color: #343a40;
+      --text-light: #ffffff;
+      --border-color: #e9ecef;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 3px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+      --header-height: 71px;
+      --nav-width: 240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      padding-top: var(--header-height);
+    }
+
+    /* ------------------- */
+    /* -- HEADER & NAV --- */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, #9ab35c, #86a248);
+      color: var(--text-light);
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1001;
+      height: var(--header-height);
+    }
+
+    .menu-toggle { display: none; cursor: pointer; }
+    
+    .container {
+      display: flex;
+    }
+
+    nav {
+      width: var(--nav-width);
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 25px 20px;
+      transition: transform 0.3s ease-in-out;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      height: calc(100vh - var(--header-height));
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li { margin: 15px 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    nav ul li a:hover, nav ul li a.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+      transform: translateX(5px);
+    }
+    
+    /* ------------------- */
+    /* -- MAIN CONTENT --- */
+    /* ------------------- */
+    main {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      margin-left: var(--nav-width);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    .payment-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 10px;
+      grid-column: 1 / -1;
+    }
+
+    /* Payment Options Section */
+    .payment-options {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+    
+    /* Accordion Style */
+    .payment-method input[type="radio"] {
+      display: none;
+    }
+
+    .payment-method-header {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: 600;
+      font-size: 16px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s;
+    }
+    
+    .payment-method:last-child .payment-method-header {
+      border-bottom: none;
+    }
+
+    .payment-method-header i {
+      font-size: 22px;
+      width: 30px;
+      text-align: center;
+      color: var(--primary-color);
+      transition: color 0.3s;
+    }
+    
+    .payment-method-header:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .payment-method-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+      padding: 0 25px;
+      background-color: #fafafa;
+    }
+    
+    .payment-method input[type="radio"]:checked + .payment-method-header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      border-color: var(--primary-color);
+    }
+    .payment-method input[type="radio"]:checked + .payment-method-header i {
+        color: var(--text-light);
+    }
+    .payment-method input[type="radio"]:checked ~ .payment-method-content {
+      max-height: 500px;
+      padding: 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Form Fields */
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-child { margin-bottom: 0; }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      font-size: 16px;
+      font-family: "Poppins", sans-serif;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background-color: var(--secondary-color);
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(134, 162, 72, 0.15);
+      background-color: #fff;
+    }
+    
+    .form-row { display: flex; gap: 20px; }
+    .form-row .form-group { flex: 1; }
+
+    .bank-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 15px;
+    }
+    
+    .bank-item {
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    .bank-item:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+      color: var(--primary-color);
+    }
+
+    /* Booking Summary Section */
+    .booking-summary {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      padding: 30px;
+      height: fit-content;
+    }
+    
+    .booking-summary h2 {
+      font-size: 22px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+    
+    .summary-item .label { color: #6c757d; }
+    .summary-item .value { font-weight: 500; }
+
+    .summary-total {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border-color);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* Pay Button */
+    .btn-pay {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 25px;
+    }
+
+    .btn-pay:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 15px rgba(134, 162, 72, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .payment-wrapper { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+      nav { transform: translateX(-100%); }
+      nav.active { transform: translateX(0); }
+      .menu-toggle { display: block; }
+      
+      main {
+        margin-left: 0;
+        padding: 20px;
+      }
+      h1 { font-size: 24px; }
+    }
+
+    /* ------------------- */
+    /* --- SUCCESS MODAL --- */
+    /* ------------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      font-size: 72px;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .modal-content h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .modal-content p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #6c757d;
+    }
+
+    .btn-done {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-done:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 15px rgba(134, 162, 72, 0.4);
+      transform: translateY(-2px);
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <span>Complete Payment</span>
+    <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+  </header>
+
+  <div class="container">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="patient-home.html"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="bookappointment.html" class="active"><i class="fas fa-calendar-check"></i>Book Appointment</a></li>
+        <li><a href="my-appoinments.html"><i class="fas fa-calendar-alt"></i>My Appointments</a></li>
+        <li><a href="reports.html"><i class="fas fa-file-invoice"></i>Reports</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="payment-wrapper">
+        <h1>Payment Details</h1>
+        
+        <!-- Left Side: Payment Options -->
+        <div class="payment-options">
+          
+          <!-- Method 1: Credit/Debit Card -->
+          <div class="payment-method">
+            <input type="radio" name="payment-method" id="card-payment" checked>
+            <label for="card-payment" class="payment-method-header">
+              <i class="fas fa-credit-card"></i>
+              <span>Credit & Debit Card</span>
+            </label>
+            <div class="payment-method-content">
+              <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="0000 0000 0000 0000">
+              </div>
+              <div class="form-group">
+                <label for="card-holder">Card Holder Name</label>
+                <input type="text" id="card-holder" placeholder="John Doe">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="expiry-date">Expiry Date</label>
+                  <input type="text" id="expiry-date" placeholder="MM / YY">
+                </div>
+                <div class="form-group">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Method 2: UPI -->
+          <div class="payment-method">
+            <input type="radio" name="payment-method" id="upi-payment">
+            <label for="upi-payment" class="payment-method-header">
+              <i class="fa-brands fa-google-pay"></i>
+              <span>UPI</span>
+            </label>
+            <div class="payment-method-content">
+              <div class="form-group">
+                <label for="upi-id">Enter UPI ID</label>
+                <input type="text" id="upi-id" placeholder="yourname@bank">
+              </div>
+              <button class="btn-pay" style="margin-top:0;">Verify & Pay</button>
+            </div>
+          </div>
+          
+          <!-- Method 3: Net Banking -->
+          <div class="payment-method">
+            <input type="radio" name="payment-method" id="net-banking">
+            <label for="net-banking" class="payment-method-header">
+              <i class="fas fa-university"></i>
+              <span>Net Banking</span>
+            </label>
+            <div class="payment-method-content">
+              <p style="margin-bottom:15px; font-weight:500;">Select your bank from the list below:</p>
+              <div class="bank-list">
+                <div class="bank-item">HDFC Bank</div>
+                <div class="bank-item">ICICI Bank</div>
+                <div class="bank-item">SBI</div>
+                <div class="bank-item">Axis Bank</div>
+                <div class="bank-item">Kotak Bank</div>
+                <div class="bank-item">Yes Bank</div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Right Side: Booking Summary -->
+        <div class="booking-summary">
+          <h2>Booking Summary</h2>
+          <div class="summary-item">
+            <span class="label">Appointment For</span>
+            <span class="value">Dr. Smith</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Department</span>
+            <span class="value">Physiotherapy</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Date</span>
+            <span class="value">11 Aug 2025</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Time</span>
+            <span class="value">10:30 AM</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Consultation Fee</span>
+            <span class="value">$80.00</span>
+          </div>
+          <div class="summary-total summary-item">
+            <span class="label">Total Amount</span>
+            <span class="value">$80.00</span>
+          </div>
+          
+          <button class="btn-pay">Pay ₹1350.00</button>
+        </div>
+        
+      </div>
+    </main>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>Payment Successful!</h2>
+      <p>Your appointment has been booked successfully.</p>
+      <button class="btn-done" id="closeModal">Done</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // --- SCRIPT FOR MODAL ---
+    const allPayButtons = document.querySelectorAll('.btn-pay');
+    const successModal = document.getElementById('successModal');
+    const closeModalButton = document.getElementById('closeModal');
+
+    function showModal(event) {
+      event.preventDefault(); 
+      successModal.classList.add('active');
+    }
+
+    function hideModal() {
+      successModal.classList.remove('active');
+    }
+
+    allPayButtons.forEach(button => {
+        button.addEventListener('click', showModal);
+    });
+
+    closeModalButton.addEventListener('click', hideModal);
+
+    successModal.addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideModal();
+      }
+    });
+
+  </script>
+</body>
+</html>
